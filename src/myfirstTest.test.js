@@ -73,21 +73,39 @@ describe("Testing Strings",()=>{
   })
 
   it("Doesn't have PS4 in shopping list",()=>{
-    const shoppingList = ['PS5',"Milk","Paper towels","ps4"] 
+    const shoppingList = ['PS5',"Milk","Paper towels"] 
 
     expect(shoppingList).not.toContain('ps4')
   })
 })
-// describe("Testing Strings",()=>{
-//   it("Should be no I in Team",()=>{
-//     let string = "TeamI"
+describe("Testing references equality",()=>{
+  let user = {
+    name:"Rodrigo",
+    age:36
+  }
+  it("Should return an object age as 36",()=>{
+    expect(user['age']).toBe(36)
+    expect(user).toEqual({
+      name:"Rodrigo",
+      age:36
+    })
+  })
 
-//     expect(string).not.toMatch(/I/)
-//   })
+  it("Should return a user with name and age keys",()=>{
+    expect(user).toEqual(
+      expect.objectContaining({
+        name: expect.any(String),
+        age: expect.any(Number)
+      })
+    )
+  })
+  test("Array Equality",()=>{
+    const users=["Rodrigo","Jéssica", "Cacau", "Fernando"]
 
-//   it("There is stop in Chistopher",()=>{
-//     let string = "ChristoPher"
+    users.push("Roberto")
 
-//     expect(string).toMatch(/stop/i)
-//   })
-// })
+    // expect(users).toEqual(["Rodrigo","Jéssica", "Cacau", "Fernando"])
+    expect(users).toEqual(expect.arrayContaining(['Roberto']))
+    expect(users).toEqual(expect.arrayContaining([expect.any(String)]))
+  })
+})
