@@ -108,4 +108,35 @@ describe("Testing references equality",()=>{
     expect(users).toEqual(expect.arrayContaining(['Roberto']))
     expect(users).toEqual(expect.arrayContaining([expect.any(String)]))
   })
+
+  test("Array Equality with arrays of objects",()=>{
+    const userObjectInArray =[
+      {
+        user:"Rodrigo",
+        age:36
+      },
+      {
+        user:"Jéssica",
+        age:29
+      },
+      {
+        user:"Fernando",
+        age:26
+      },
+      {
+        user: "Cacau",
+        age:4
+      }
+    ]
+
+    userObjectInArray.push({user:"Roberto", age:62})
+
+    expect(userObjectInArray).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          user:expect.any(String),
+          age:expect.any(Number)
+        })
+      ]))
+  })
 })
