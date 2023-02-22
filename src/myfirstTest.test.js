@@ -1,3 +1,4 @@
+const {sum, deleteUserById, findUserById} = require('./utils/helper.js')
 
 describe('First Suite - General 1',()=>{
   describe('First suite of tests general 1',()=>{
@@ -78,6 +79,7 @@ describe("Testing Strings",()=>{
     expect(shoppingList).not.toContain('ps4')
   })
 })
+
 describe("Testing references equality",()=>{
   let user = {
     name:"Rodrigo",
@@ -138,5 +140,79 @@ describe("Testing references equality",()=>{
           age:expect.any(Number)
         })
       ]))
+  })
+})
+
+describe("Test functions",()=>{
+
+  it("Should add two numbers",()=>{
+    expect(sum(5,3)).toBe(8)
+    expect(sum(5,10)).toBe(15)
+    expect(sum(5,5)).toBe(10)
+    expect(sum(2,3)).toBe(5)
+  })
+  it("Should delete user by id using deleteUserById function passing an id",()=>{
+    
+    const users =[
+      {
+        user:"Rodrigo",
+        age:36,
+        id:1
+      },
+      {
+        user:"Jéssica",
+        age:29,
+        id:2
+      },
+      {
+        user:"Fernando",
+        age:26,
+        id:3
+      },
+      {
+        user: "Cacau",
+        age:4,
+        id:4
+      }
+    ]
+
+    expect(deleteUserById(users, 5)).toEqual([
+      {
+        user:"Rodrigo",
+        age:36,
+        id:1
+      },
+      {
+        user:"Jéssica",
+        age:29,
+        id:2
+      },
+      {
+        user:"Fernando",
+        age:26,
+        id:3
+      },
+      {
+        user: "Cacau",
+        age:4,
+        id:4
+      }
+    ])
+  })
+})
+
+describe("Done by test driven development",()=>{
+  const users =[
+    {user:"Rodrigo", age:36, id:1},
+    {user:"Jéssica", age:29, id:2},
+    {user:"Fernando", age:26, id:3},
+    {user: "Cacau", age:4, id:4}
+  ]
+
+  test("Find list of user", ()=>{
+    expect(findUserById(users,2)).toEqual({user:"Jéssica", age:29, id:2})
+    expect(findUserById(users,10)).toBeUndefined()
+    expect(findUserById(users,10)).toBeFalsy()
+    expect(findUserById(users,10)).not.toBeNull()
   })
 })
