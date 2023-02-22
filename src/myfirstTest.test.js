@@ -1,5 +1,21 @@
 const {sum, deleteUserById, findUserById} = require('./utils/helper.js')
 
+let users = []
+
+beforeEach(()=>{
+  users =[
+    {user:"Rodrigo", age:36, id:1},
+    {user:"Jéssica", age:29, id:2},
+    {user:"Fernando", age:26, id:3},
+    {user: "Cacau", age:4, id:4}
+  ]
+  console.log("BeforeAll  --  users", users)
+})
+
+afterEach(()=>{
+  users=[]
+  console.log("AfterAll  --  users", users)
+})
 describe('First Suite - General 1',()=>{
   describe('First suite of tests general 1',()=>{
     test("1+1 should be equal 2",()=>{
@@ -25,6 +41,7 @@ describe('Second Suite - General 2',()=>{
     })
   })
 })
+
 describe("Testing other matcher methods",()=>{
   test("Test if the variable is undefined",()=>{
     let number = null
@@ -102,38 +119,20 @@ describe("Testing references equality",()=>{
     )
   })
   test("Array Equality",()=>{
-    const users=["Rodrigo","Jéssica", "Cacau", "Fernando"]
+    const usersList=["Rodrigo","Jéssica", "Cacau", "Fernando"]
 
-    users.push("Roberto")
+    usersList.push("Roberto")
 
-    // expect(users).toEqual(["Rodrigo","Jéssica", "Cacau", "Fernando"])
-    expect(users).toEqual(expect.arrayContaining(['Roberto']))
-    expect(users).toEqual(expect.arrayContaining([expect.any(String)]))
+    // expect(usersList).toEqual(["Rodrigo","Jéssica", "Cacau", "Fernando"])
+    expect(usersList).toEqual(expect.arrayContaining(['Roberto']))
+    expect(usersList).toEqual(expect.arrayContaining([expect.any(String)]))
   })
 
   test("Array Equality with arrays of objects",()=>{
-    const userObjectInArray =[
-      {
-        user:"Rodrigo",
-        age:36
-      },
-      {
-        user:"Jéssica",
-        age:29
-      },
-      {
-        user:"Fernando",
-        age:26
-      },
-      {
-        user: "Cacau",
-        age:4
-      }
-    ]
 
-    userObjectInArray.push({user:"Roberto", age:62})
+    users.push({user:"Roberto", age:62})
 
-    expect(userObjectInArray).toEqual(
+    expect(users).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           user:expect.any(String),
@@ -153,61 +152,30 @@ describe("Test functions",()=>{
   })
   it("Should delete user by id using deleteUserById function passing an id",()=>{
     
-    const users =[
-      {
-        user:"Rodrigo",
-        age:36,
-        id:1
-      },
-      {
-        user:"Jéssica",
-        age:29,
-        id:2
-      },
-      {
-        user:"Fernando",
-        age:26,
-        id:3
-      },
-      {
-        user: "Cacau",
-        age:4,
-        id:4
-      }
-    ]
+    // const users =[
+    //   {user:"Rodrigo", age:36, id:1},
+    //   {user:"Jéssica", age:29, id:2},
+    //   {user:"Fernando", age:26, id:3},
+    //   {user: "Cacau", age:4, id:4}
+    // ]
 
     expect(deleteUserById(users, 5)).toEqual([
-      {
-        user:"Rodrigo",
-        age:36,
-        id:1
-      },
-      {
-        user:"Jéssica",
-        age:29,
-        id:2
-      },
-      {
-        user:"Fernando",
-        age:26,
-        id:3
-      },
-      {
-        user: "Cacau",
-        age:4,
-        id:4
-      }
+      {user:"Rodrigo", age:36, id:1},
+      {user:"Jéssica", age:29, id:2},
+      {user:"Fernando", age:26, id:3},
+      {user: "Cacau", age:4, id:4}
     ])
+    expect(deleteUserById(users, 5).length).toBe(4)
   })
 })
 
 describe("Done by test driven development",()=>{
-  const users =[
-    {user:"Rodrigo", age:36, id:1},
-    {user:"Jéssica", age:29, id:2},
-    {user:"Fernando", age:26, id:3},
-    {user: "Cacau", age:4, id:4}
-  ]
+  // const users =[
+  //   {user:"Rodrigo", age:36, id:1},
+  //   {user:"Jéssica", age:29, id:2},
+  //   {user:"Fernando", age:26, id:3},
+  //   {user: "Cacau", age:4, id:4}
+  // ]
 
   test("Find list of user", ()=>{
     expect(findUserById(users,2)).toEqual({user:"Jéssica", age:29, id:2})
